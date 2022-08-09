@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import {AppStack} from "./stack";
+import { AppStack } from "../src/stack";
 
 /**
  * Creates the CDK app, root construct

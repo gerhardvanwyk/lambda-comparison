@@ -9,6 +9,7 @@ interface FunctionProps {
     readonly functionName: string
     readonly tracingActive: boolean
     readonly invocations?: number
+    readonly queueUrl: string
     readonly finProps?: Partial<NodejsFunctionProps>
 }
 
@@ -17,15 +18,15 @@ class Function extends Construct {
     public constructor(scope: Construct, id: string, props?: FunctionProps) {
         super(scope, id);
 
-        const {functionName, tracingActive, invocations } = Object.assign({
+        const {functionName, tracingActive, invocations, finProps } = Object.assign({
             tracingActive: false,
-            invocations: 2
+            invocations: 2,
         }, props);
 
         const fn = new NodejsFunction(this, functionName, {
             tracing: tracingActive ? Tracing.ACTIVE : Tracing.DISABLED,
             runtime: Runtime.NODEJS_16_X,
-            ...props
+            ...finProps
         })
 
         for(let i = 0; i < invocations; i++){
